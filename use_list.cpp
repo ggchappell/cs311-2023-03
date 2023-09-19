@@ -1,6 +1,7 @@
-// use_list.cpp  UNFINISHED
+// use_list.cpp
 // Glenn G. Chappell
-// 2023-09-17
+// Started: 2023-09-17
+// Updated: 2023-09-18
 //
 // For CS 311 Fall 2023
 // Singly Linked List example: create & find size
@@ -35,8 +36,14 @@ void userPause()
 template <typename ValType>
 size_t size(const LLNode<ValType> * head)
 {
-    return size_t(42);  // DUMMY
-    // TODO: WRITE THIS!!!
+    auto p = head;       // Iterates through list
+    size_t counter = 0;  // Number of nodes so far
+    while (p != nullptr)
+    {
+        p = p->_next;
+        ++counter;
+    }
+    return counter;
 }
 
 
