@@ -1,6 +1,7 @@
-// binsearch1.cpp  UNFINISHED
+// binsearch1.cpp
 // Glenn G. Chappell
-// 2023-09-19
+// Started: 2023-09-19
+// Updated: 2023-09-20
 //
 // For CS 311 Fall 2023
 // Binary Search
@@ -56,8 +57,26 @@ bool binSearch(RAIter first,      // [first, last) is range to search
                const ValueType & findme)
                                   // value to find
 {
-    return false;  // DUMMY
-    // TODO: WRITE THIS!!!
+    // BASE CASE
+
+    if (last == first)      // Range has size 0
+        return false;
+    if (last == first + 1)  // Range has size 1
+        return *first == findme;
+
+    // RECURSIVE CASE
+
+    // Get iterator to pivot: item in middle position of range
+    auto pivotiter = first + (last - first)/2;
+
+    if (findme < *pivotiter)
+    {   // Recursively search first half of range
+        return binSearch(first, pivotiter, findme);
+    }
+    else
+    {   // Recursively search second half of range
+        return binSearch(pivotiter, last, findme);
+    }
 }
 
 
