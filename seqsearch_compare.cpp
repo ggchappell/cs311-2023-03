@@ -1,6 +1,7 @@
-// seqsearch_compare.cpp  UNFINISHED
+// seqsearch_compare.cpp
 // Glenn G. Chappell
-// 2023-09-24
+// Started: 2023-09-24
+// Updated: 2023-09-25
 //
 // For CS 311 Fall 2023
 // Compare Sequential Search with Binary Search
@@ -136,8 +137,12 @@ bool seqSearch(FDIter first,      // [first, last) is range to search
                const ValueType & findme)
                                   // value to find
 {
-    return false;  // DUMMY
-    // TODO: WRITE THIS!!!
+    for (auto iter = first; iter != last; ++iter)
+    {
+        if (*iter == findme)
+            return true;
+    }
+    return false;
 }
 
 
