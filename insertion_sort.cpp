@@ -1,4 +1,4 @@
-// insertion_sort.cpp  UNFINISHED
+// insertion_sort.cpp
 // Glenn G. Chappell
 // 2023-10-02
 //
@@ -18,6 +18,7 @@ using std::vector;
 using std::size_t;
 #include <utility>
 using std::swap;
+using std::move;
 #include <iterator>
 using std::begin;
 using std::end;
@@ -46,7 +47,36 @@ const int MAXVAL = 999'999'999;
 template <typename RAIter>
 void insertionSort(RAIter first, RAIter last)
 {
-    // TODO: WRITE THIS!!!
+    // NOTE. We *could* rewrite the following code using iterators
+    //  instead of indices. Then we this function would be able to take
+    //  parameters that are bidirectional iterators, instead of only
+    //  random-access iterators.
+
+    // Compute size of range
+    size_t size = last - first;
+
+    // Iterate through items, inserting each into earlier items
+    for (size_t i = 1; i != size; ++i)
+    {
+        // We need to insert item i into sorted list of items 0 .. i-1
+
+        auto save_item_i = std::move(first[i]);
+
+        // Find the spot for item i, moving up other items as we go
+        size_t k;  // We use k after the loop, so declare it outside
+        for (k = i; k != 0; --k)
+            // Be careful! Backwards loop with unsigned counter
+        {
+            if (!(save_item_i < first[k-1]))
+                break;
+            first[k] = std::move(first[k-1]);
+        }
+
+        // Item i should be in spot k; put it there
+        first[k] = std::move(save_item_i);
+        // NOTE. I had "if (k != i)" above, but that would leave
+        //  first[i] in a moved-from state when k == i.
+    }
 }
 
 
