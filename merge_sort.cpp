@@ -1,4 +1,4 @@
-// merge_sort.cpp  UNFINISHED
+// merge_sort.cpp
 // Glenn G. Chappell
 // 2023-10-04
 //
@@ -23,9 +23,10 @@ using std::move;
 using std::begin;
 using std::end;
 using std::distance;
+using std::next;
 using std::iterator_traits;
 #include <algorithm>
-using std::copy;
+using std::move;
 #include <chrono>
 // Everything from <chrono> is preceded by std::
 #include <cassert>
@@ -71,14 +72,17 @@ void stableMerge(FDIter first, FDIter middle, FDIter last)
             *out++ = std::move(*in1++);
     }
 
-    // Copy remainder of original sequence to buffer.
+    // Move remainder of original sequence to buffer.
     // Only one of the following two calls will do anything, since the
     //  other is given an empty source range.
-    copy(in1, middle, out);
-    copy(in2, last, out);
+    // NOTE. This is the 3-parameter version of std::move (the "move"
+    //  version of std::copy, declared in <algorithm>), not the
+    //  1-parameter version (casts to an Rvalue, declared in <utility>).
+    move(in1, middle, out);
+    move(in2, last, out);
 
-    // Copy buffer contents back to original sequence location.
-    copy(begin(buffer), end(buffer), first);
+    // Move buffer contents back to original sequence location.
+    move(begin(buffer), end(buffer), first);
 }
 
 
@@ -95,7 +99,25 @@ void stableMerge(FDIter first, FDIter middle, FDIter last)
 template <typename FDIter>
 void mergeSort(FDIter first, FDIter last)
 {
-    // TODO: WRITE THIS!!!
+    // Compute size of range
+    auto size = distance(first, last);
+
+    // BASE CASE
+
+    if (size <= 1)
+        return;
+
+    // RECURSIVE CASE
+
+    // Create iterator to middle of range
+    auto middle = next(first, size/2);
+
+    // Recursively sort the two lists
+    mergeSort(first, middle);
+    mergeSort(middle, last);
+
+    // And merge them
+    stableMerge(first, middle, last);
 }
 
 
