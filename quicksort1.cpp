@@ -1,4 +1,4 @@
-// quicksort1.cpp  UNFINISHED
+// quicksort1.cpp
 // Glenn G. Chappell
 // 2023-10-06
 //
@@ -104,7 +104,23 @@ void hPartition(RAIter first, RAIter last,  // Range to partition
 template <typename RAIter>
 void quicksort(RAIter first, RAIter last)
 {
-    // TODO: WRITE THIS!!!
+    // BASE CASE
+
+    if (first == last)  // empty list
+        return;
+
+    // RECURSIVE CASE
+
+    // Simple pivot choice: let the pivot be the first item
+    auto pivotiter = first;
+
+    // Do partition
+    hPartition(first, last, pivotiter);
+
+    // Two recursive sorts
+    auto afterpivot = pivotiter + 1;  // Iterator to item after pivot
+    quicksort(first, pivotiter);
+    quicksort(afterpivot, last);
 }
 
 
