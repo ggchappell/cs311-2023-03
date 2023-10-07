@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # important.py
 # Glenn G. Chappell
-# 2023-09-28
+# Started: 2023-09-28
+# Updated: 2023-10-07
 #
 # For CS 311 Fall 2023
 """Print the sum from Analysis of Algorithms slides.
@@ -50,12 +51,12 @@ def main():
             line = input("Type n [blank line to exit]: ")
             if line == "": break
             n = int(line)
-            if n < 0: raise Exception()
+            if n <= 0: raise Exception()
         except (KeyboardInterrupt, AssertionError):
             raise
         except:
             print()
-            print("Please type a nonnegative integer")
+            print("Please type a positive integer")
         else:
             print()
             print_results(n)
