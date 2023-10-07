@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # range.py
 # Glenn G. Chappell
-# 2023-09-17
+# Started: 2023-09-17
+# Updated: 2023-10-07
 #
 # For CS 311 Fall 2023
 """Example of a range specification in Python."""
@@ -17,7 +18,7 @@ def main():
     """
     print("Printing values given by \"range(2, 7)\":")
     for i in range(2, 7):
-        print(f"  {i}")
+        print(" ", i)
     print()
 
     print("Python follows the same first/just-past-last convention for")

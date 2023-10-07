@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # stirling.py
 # Glenn G. Chappell
-# 2023-10-06
+# Started: 2023-10-06
+# Updated: 2023-10-07
 #
 # For CS 311 Fall 2023
 """Compare factorial & Stirling's approximation."""
@@ -50,9 +51,9 @@ def factorial(n):
 def stirling(n):
     """nonneg number n -> Stirling's approximation of n!
 
-    >>> f"{stirling(6):.3f}"
+    >>> "{:.3f}".format(stirling(6))
     '710.078'
-    >>> f"{stirling(20):.3f}"
+    >>> "{:.3f}".format(stirling(20))
     '2422786846761133568.000'
 
     Pre:
@@ -69,7 +70,7 @@ def stirling(n):
 def print_results(n):
     """Compute n! & Stirling's approximation; print in pretty form."""
 
-    print(f"n = {n}")
+    print("n =", n)
     print("")
     try:
         f = factorial(n)
@@ -81,8 +82,8 @@ def print_results(n):
         print("machine, the computation exceeds the limits of Python's")
         print("floating-point math when n >= 144. -GGC-)")
     else:
-        print(f"Factorial:  {f}")
-        print(f"Stirling's: {s:.2f}")
+        print("Factorial:  {}".format(f))
+        print("Stirling's: {:.2f}".format(s))
 
 
 # main

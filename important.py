@@ -32,11 +32,12 @@ def print_results(n):
     field_width = len(str(total))
 
     # Print all values
-    print(f"n log_10(n) {a:>{field_width}}")
-    print(f"72 n        {b:>{field_width}}")
-    print(f"3 n^2       {c:>{field_width}}")
-    print(f"936         {d:>{field_width}}")
-    print(f"SUM         {total:>{field_width}}")
+    fmtstr = "{:>" + str(field_width) + "}"
+    print(("n log_10(n) " + fmtstr).format(a))
+    print(("72 n        " + fmtstr).format(b))
+    print(("3 n^2       " + fmtstr).format(c))
+    print(("936         " + fmtstr).format(d))
+    print(("SUM         " + fmtstr).format(total))
 
 
 # main
