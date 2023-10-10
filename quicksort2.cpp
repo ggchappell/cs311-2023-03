@@ -1,6 +1,7 @@
-// quicksort2.cpp  UNFINISHED
+// quicksort2.cpp
 // Glenn G. Chappell
-// 2023-10-06
+// Started: 2023-10-06
+// Updated: 2023-10-09
 //
 // For CS 311 Fall 2023
 // Quicksort
@@ -173,10 +174,63 @@ Iter medianOf3(Iter ai, Iter bi, Iter ci)
 }
 
 
+// quicksort_recurse
+// Recursive helper function for quicksort. Nearly sorts a sequence,
+// down to level of SMALL_SIZE, using Quicksort optimized with
+// median-of-three and tail-recursion elimination on the larger
+// recursive call. Sublists of size SMALL_SIZE or smaller are not
+// sorted. Thus, returns data as nearly sorted, ready to be
+// finished with a call to Insertion Sort.
+// Recursive.
+// Requirements on Types:
+//     RAIter is a random-access iterator type.
+//     operator< is a total order on the value type of RAIter.
+// Pre:
+//     [first, last) is a valid range.
+template <typename RAIter>
+void quicksort_recurse(RAIter first, RAIter last)
+{
+    while (true)  // For tail-recursion elimination
+    {
+        size_t size = last - first;    // Size of range
+
+        // BASE CASE
+
+        const size_t SMALL_SIZE = 37;  // Max size of "small" sublist
+                                       //  We do not sort these here
+        if (size <= SMALL_SIZE)
+            return;
+
+        // RECURSIVE CASE
+
+        // Find median-of-three pivot and point pivotiter at it.
+        auto pivotiter = medianOf3(first, first+size/2, last-1);
+
+        // Do partition
+        hPartition(first, last, pivotiter);
+
+        // Two sorts, with larger "recursive call" done via iteration.
+        auto afterpivot = pivotiter + 1;  // Iter to item after pivot
+        if (pivotiter-first < last-afterpivot)
+        {
+            quicksort_recurse(first, pivotiter);
+            first = afterpivot;
+        }
+        else
+        {
+            quicksort_recurse(afterpivot, last);
+            last = pivotiter;
+        }
+        // quicksort_recurse(first, last);  // tail recursion eliminated
+    }
+}
+
+
 // quicksort
 // Sort a range, using Quicksort optimized with median-of-three
 // pivot selection, tail-recursion elimination on the larger
 // recursive call, and an Insertion Sort finish.
+// Calls recursive function.
 // Requirements on Types:
 //     RAIter is a random-access iterator type.
 //     operator< is a total order on the value type of RAIter.
@@ -185,7 +239,11 @@ Iter medianOf3(Iter ai, Iter bi, Iter ci)
 template <typename RAIter>
 void quicksort(RAIter first, RAIter last)
 {
-    // TODO: WRITE THIS!!!
+    // Get data nearly sorted
+    quicksort_recurse(first, last);
+
+    // Finish with Insertion Sort
+    insertionSort(first, last);
 }
 
 
@@ -419,15 +477,14 @@ int main()
     cout << "\n";
     trySort_small();
 
-    // MESSY-DATA TRIAL MOVED BEFORE NEARLY-SORTED DATA TRIALS
-    cout << "\n";
-    trySort_messy();
-
     cout << "\n";
     trySort_nearlySorted1();
 
     cout << "\n";
     trySort_nearlySorted2();
+
+    cout << "\n";
+    trySort_messy();
 
     // ********** Done **********
 
