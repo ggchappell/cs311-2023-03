@@ -1,8 +1,8 @@
 // msarray.cpp  UNFINISHED
-// VERSION 2
+// VERSION 3
 // Glenn G. Chappell
 // Started: 2023-10-17
-// Updated: 2023-10-18
+// Updated: 2023-10-20
 //
 // For CS 311 Fall 2023
 // Source for class MSArray
