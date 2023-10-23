@@ -57,7 +57,7 @@ void use_all_MSArray()
 
     // Move ctor
     MSArray atmp1;
-    MSArray a4(move(atmp1));
+    MSArray a4(std::move(atmp1));
 
     // Dctor
     // Called when function exits after creating MSArray objects
@@ -67,7 +67,7 @@ void use_all_MSArray()
 
     // Move op=
     MSArray atmp2;
-    aa = (a3 = move(atmp2));
+    aa = (a3 = std::move(atmp2));
 
     // Bracket op, non-const
     a2[s] = v;
