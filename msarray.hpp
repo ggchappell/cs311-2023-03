@@ -1,8 +1,8 @@
 // msarray.hpp  UNFINISHED
-// VERSION 4
+// VERSION 5
 // Glenn G. Chappell
 // Started: 2023-10-17
-// Updated: 2023-10-23
+// Updated: 2023-10-24
 //
 // For CS 311 Fall 2023
 // Header for class MSArray
@@ -31,14 +31,15 @@
 //   - Revise ctor from size, copy ctor accordingly.
 //   - Write move ctor.
 //   - Mark various functions as noexcept.
+// - v5:
+//   - Move func defs to source file: copy & move ops, resize, insert,
+//     erase, swap.
 
 #ifndef FILE_MSARRAY_HPP_INCLUDED
 #define FILE_MSARRAY_HPP_INCLUDED
 
 #include <cstddef>
 // For std::size_t
-#include <algorithm>
-// For std::copy
 
 
 // *********************************************************************
@@ -82,42 +83,19 @@ public:
 
     // Copy ctor
     // Strong Guarantee
-    MSArray(const MSArray & other)
-        :_size(other.size()),
-         _data(other.size() == 0 ? nullptr
-                                 : new value_type[other.size()])
-    {
-        std::copy(other.begin(), other.end(), begin());
-        // The above call to std::copy does not throw, since it copies
-        // int values. But if value_type is changed, then the call may
-        // throw, in which case this copy ctor may need to be rewritten.
-    }
+    MSArray(const MSArray & other);
 
     // Move ctor
     // No-Throw Guarantee
-    MSArray(MSArray && other) noexcept
-        :_size(other._size),
-         _data(other._data)
-    {
-        other._size = 0;
-        other._data = nullptr;
-    }
+    MSArray(MSArray && other) noexcept;
 
     // Copy assignment operator
     // ??? Guarantee
-    MSArray & operator=(const MSArray & other)
-    {
-        // TODO: WRITE THIS!!!
-        return *this; // DUMMY
-    }
+    MSArray & operator=(const MSArray & other);
 
     // Move assignment operator
     // No-Throw Guarantee
-    MSArray & operator=(MSArray && other) noexcept
-    {
-        // TODO: WRITE THIS!!!
-        return *this; // DUMMY
-    }
+    MSArray & operator=(MSArray && other) noexcept;
 
     // Dctor
     // No-Throw Guarantee
@@ -183,34 +161,23 @@ public:
 
     // resize
     // ??? Guarantee
-    void resize(size_type newsize)
-    {
-        // TODO: WRITE THIS!!!
-    }
+    void resize(size_type newsize);
 
     // insert
     // Pre:
     //     ???
     // ??? Guarantee
     iterator insert(iterator pos,
-                    value_type item)
+                    value_type item);
         // Above, passing by value is appropriate, since our value type
         // is int. However, if the value type is changed, then a
         // different parameter-passing method may need to be used.
-    {
-        // TODO: WRITE THIS!!!
-        return begin();  // DUMMY
-    }
 
     // erase
     // Pre:
     //     ???
     // ??? Guarantee
-    iterator erase(iterator pos)
-    {
-        // TODO: WRITE THIS!!!
-        return begin();  // DUMMY
-    }
+    iterator erase(iterator pos);
 
     // push_back
     // ??? Guarantee
@@ -231,10 +198,7 @@ public:
 
     // swap
     // No-Throw Guarantee
-    void swap(MSArray & other) noexcept
-    {
-        // TODO: WRITE THIS!!!
-    }
+    void swap(MSArray & other) noexcept;
 
 // ***** MSArray: data members *****
 private:
