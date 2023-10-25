@@ -1,8 +1,8 @@
-// msarray.cpp  UNFINISHED
-// VERSION 5
+// msarray.cpp  HAND-OFF
+// VERSION 6
 // Glenn G. Chappell
 // Started: 2023-10-17
-// Updated: 2023-10-24
+// Updated: 2023-10-25
 //
 // For CS 311 Fall 2023
 // Source for class MSArray
@@ -23,9 +23,10 @@ using std::copy;
 // Copy ctor
 // See header for info.
 MSArray::MSArray(const MSArray & other)
-    :_size(other.size()),
-     _data(other.size() == 0 ? nullptr
-                             : new value_type[other.size()])
+    :_capacity(other._capacity),
+     _size(other.size()),
+     _data(other._capacity == 0 ? nullptr
+                                : new value_type[other._capacity])
 {
     copy(other.begin(), other.end(), begin());
     // The above call to std::copy does not throw, since it copies int
@@ -37,9 +38,11 @@ MSArray::MSArray(const MSArray & other)
 // Move ctor
 // See header for info.
 MSArray::MSArray(MSArray && other) noexcept
-    :_size(other._size),
+    :_capacity(other._capacity),
+     _size(other._size),
      _data(other._data)
 {
+    other._capacity = 0;
     other._size = 0;
     other._data = nullptr;
 }
