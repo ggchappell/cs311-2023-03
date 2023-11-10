@@ -190,14 +190,15 @@ Iter medianOf3(Iter ai, Iter bi, Iter ci)
 template <typename RAIter>
 void quicksort_recurse(RAIter first, RAIter last)
 {
+    const size_t SMALL_SIZE = 37;  // Max size of "small" sublist
+                                   //  We do not sort these here
+
     while (true)  // For tail-recursion elimination
     {
         size_t size = last - first;    // Size of range
 
         // BASE CASE
 
-        const size_t SMALL_SIZE = 37;  // Max size of "small" sublist
-                                       //  We do not sort these here
         if (size <= SMALL_SIZE)
             return;
 
