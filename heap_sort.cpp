@@ -6,9 +6,6 @@
 // Heap Sort
 // Requires heap_algs.hpp
 
-#include "heap_algs.hpp"
-// For Heap algorithms
-
 #include <iostream>
 using std::cout;
 using std::endl;
