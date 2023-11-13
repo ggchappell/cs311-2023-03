@@ -1,7 +1,7 @@
 // allocate2.cpp
 // Glenn G. Chappell
-// Started: 2022-09-14
-// Updated: 2022-09-15
+// Started: 2023-09-14
+// Updated: 2023-09-15
 //
 // For CS 311 Fall 2023
 // Out-of-memory handling using exceptions

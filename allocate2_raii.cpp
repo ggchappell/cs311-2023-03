@@ -1,6 +1,6 @@
 // allocate2_raii.cpp
 // Glenn G. Chappell
-// 2022-09-14
+// 2023-09-14
 //
 // For CS 311 Fall 2023
 // Out-of-memory handling using exceptions, with RAII classes
