@@ -4,7 +4,6 @@
 //
 // For CS 311 Fall 2023
 // Heap Sort
-// Requires heap_algs.hpp
 
 #include <iostream>
 using std::cout;
