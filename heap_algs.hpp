@@ -1,6 +1,7 @@
-// heap_algs.hpp  UNFINISHED
+// heap_algs.hpp
 // Glenn G. Chappell
-// 2023-11-09
+// Started: 2023-11-09
+// Updated: 2023-11-10
 //
 // For CS 311 Fall 2023
 // Header for Heap Algorithms
@@ -13,6 +14,7 @@
 // For std::size_t
 #include <algorithm>
 // For std::swap
+// For std::iter_swap
 #include <cassert>
 // For assert
 
@@ -30,8 +32,15 @@
 template<typename RAIter>
 bool heapTest(RAIter first, RAIter last)
 {
-    return true;  // DUMMY
-    // TODO: WRITE THIS!!!
+    std::size_t size = last-first;
+
+    // Compare each non-root item with its parent
+    for (std::size_t index = 1; index < size; ++index)
+    {
+        if (first[(index-1)/2] < first[index])
+            return false;
+    }
+    return true;
 }
 
 
@@ -50,7 +59,20 @@ bool heapTest(RAIter first, RAIter last)
 template<typename RAIter>
 void heapInsert(RAIter first, RAIter last)
 {
-    // TODO: WRITE THIS!!!
+    std::size_t size = last-first;
+    assert (size != 0);
+
+    std::size_t curr = size-1;            // Index of item to sift up
+    while (curr != 0)  // While current item is not the root
+    {
+        std::size_t parent = (curr-1)/2;  // Index of parent
+        if (!(first[parent] < first[curr]))
+            break;  // No more sifting; done
+
+        // Sift up one level
+        std::swap(first[curr], first[parent]);
+        curr = parent;
+    }
 }
 
 
@@ -109,7 +131,10 @@ void siftDown(RAIter first, RAIter last, RAIter location)
 template<typename RAIter>
 void heapDelete(RAIter first, RAIter last)
 {
-    // TODO: WRITE THIS!!!
+    assert (last != first);
+
+    std::iter_swap(first, last-1);
+    siftDown(first, last-1, first);
 }
 
 
@@ -127,7 +152,26 @@ void heapDelete(RAIter first, RAIter last)
 template<typename RAIter>
 void heapMake(RAIter first, RAIter last)
 {
-    // TODO: WRITE THIS!!!
+    std::size_t size = last-first;
+
+    // Sift down each item, in reverse order, starting at last non-leaf.
+
+    // If there are no non-leaves then nothing to do.
+    if (size < 2)
+        return;
+
+    std::size_t last_non_leaf_index = (size-2)/2;
+    for (auto location = first+last_non_leaf_index;
+         first <= location;
+         --location)
+        siftDown(first, last, location);
+
+    /*
+    // Above is the linear-time method. Below is the more obvious
+    //  method, which WORKS, but requires log-linear time.
+    for (auto currentEnd = first+2; currentEnd <= last; ++currentEnd)
+        heapInsert(first, currentEnd);
+    */
 }
 
 
@@ -146,7 +190,11 @@ void heapMake(RAIter first, RAIter last)
 template<typename RAIter>
 void heapToSorted(RAIter first, RAIter last)
 {
-    // TODO: WRITE THIS!!!
+    while (last-first >= 2)
+    {
+        heapDelete(first, last);
+        --last;
+    }
 }
 
 
