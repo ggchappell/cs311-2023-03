@@ -1,9 +1,14 @@
-// heap_sort.cpp  UNFINISHED
+// heap_sort.cpp
 // Glenn G. Chappell
-// 2023-11-12
+// Started: 2023-11-12
+// Updated: 2023-11-13
 //
 // For CS 311 Fall 2023
 // Heap Sort
+// Requires heap_algs.hpp
+
+#include "heap_algs.hpp"
+// For Heap algorithms
 
 #include <iostream>
 using std::cout;
@@ -47,7 +52,8 @@ const int MAXVAL = 999'999'999;
 template <typename RAIter>
 void heapSort(RAIter first, RAIter last)
 {
-    // TODO: WRITE THIS!!!
+    heapMake(first, last);
+    heapToSorted(first, last);
 }
 
 
