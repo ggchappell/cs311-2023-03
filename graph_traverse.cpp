@@ -15,10 +15,6 @@ using std::vector;
 using std::size_t;
 #include <algorithm>
 using std::lower_bound;
-#include <stack>
-using std::stack;
-#include <queue>
-using std::queue;
 #include <cassert>
 // For assert
 
