@@ -97,7 +97,8 @@ struct LLNode2 {
 // functions of ValType are actually used here.
 // No-Throw Guarantee
 template <typename ValType>
-std::size_t size(const std::unique_ptr<LLNode2<ValType>> & head) noexcept
+std::size_t
+    size(const std::unique_ptr<LLNode2<ValType>> & head) noexcept
 {
     auto p = head.get();      // Iterates through list
     std::size_t counter = 0;  // Number of nodes so far
