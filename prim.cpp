@@ -1,6 +1,7 @@
-// prim.cpp  UNFINISHED
+// prim.cpp
 // Glenn G. Chappell
-// 2023-12-05
+// Started: 2023-12-05
+// Updated: 2023-12-06
 //
 // For CS 311 Fall 2023
 // Prim's Algorithm
@@ -17,6 +18,10 @@ using std::vector;
 using std::size_t;
 #include <utility>
 using std::pair;
+#include <queue>
+using std::priority_queue;
+#include <cassert>
+// For assert
 
 
 // CONVENTIONS
@@ -58,8 +63,66 @@ vector<Edge> prim(
     const vector<vector<int>> & wmatrix,   // weight matrix
     int start)                             // index of start vertex
 {
-    return vector<Edge>();  // Dummy
-    // TODO: WRITE THIS!!!
+    const size_t N = adjlists.size();
+                                  // Number of vertices in graph
+    assert (wmatrix.size() == N);
+    for (const auto & row : wmatrix)
+    {
+        assert (row.size() == N);
+    }
+    assert (0 <= start && size_t(start) < N);
+
+    vector<int> reachable(N, 0);  // item i: 1 if vert i reachable
+    vector<Edge> tree;            // Edges in tree
+
+    // Make priority queue of edges; top edge is one of least weight
+
+    // Comparison function for priority_queue
+    auto comp = [&](const Edge & a,
+                    const Edge & b)
+    {
+        // Get weight of edges a & b
+        auto wt_a = wmatrix[a.first][a.second];
+        auto wt_b = wmatrix[b.first][b.second];
+        return wt_b < wt_a;       // Compare reversed to get smallest
+    };
+    // The priority queue itself
+    priority_queue<Edge, vector<Edge>, decltype(comp)> pq(comp);
+
+    // Handle start vertex
+    reachable[start] = 1;
+    for (auto v : adjlists[start])
+    {
+        if (reachable[v] == 0)
+            pq.push(Edge(start, v));
+    }
+
+    // Repeat until done with all edges
+    while (!pq.empty())
+    {
+        // Get least-weight edge from reachable to not-reachable vertex
+        auto e = pq.top();
+        pq.pop();
+
+        // Check "far" endpoint of edge. Reachable?
+        auto u = e.second;
+        if (reachable[u] == 1)
+            continue;
+
+        // Handle new edge (e) & vertex (u)
+        tree.push_back(e);
+        if (tree.size()+1 == N)  // Easy optimization
+            break;
+        reachable[u] = 1;
+        for (auto v : adjlists[u])
+        {
+            if (reachable[v] == 0)
+                pq.push(Edge(u, v));
+        }
+    }
+
+    // Done
+    return tree;
 }
 
 
